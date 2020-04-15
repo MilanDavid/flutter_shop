@@ -36,6 +36,30 @@ class CartItem extends StatelessWidget {
         ),
       ),
       direction: DismissDirection.endToStart,
+      confirmDismiss: (direction) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Remove item'),
+            content: Text('Do you watn to remove item from the cart?'),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(false);
+                },
+                child: Text('No'),
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop(true);
+                },
+                child: Text('Yes'),
+              ),
+            ],
+          ),
+        );
+        return Future.value(true);
+      },
       onDismissed: (direction) {
         Provider.of<Cart>(context, listen: false).removeItem(productId);
       },
@@ -49,7 +73,7 @@ class CartItem extends StatelessWidget {
           child: ListTile(
             leading: CircleAvatar(
               child: Padding(
-                child: FittedBox(child: Text('\$$price')),
+                child: FittedBox(child: Text('\$${price.toStringAsFixed(2)}')),
                 padding: EdgeInsets.all(5),
               ),
             ),
