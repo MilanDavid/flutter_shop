@@ -28,6 +28,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pushNamed(OrdersScreen.routeName);
             },
           ),
+          Divider(),
           ListTile(
             leading: Icon(Icons.person),
             title: Text('Manage Products'),
